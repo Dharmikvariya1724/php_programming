@@ -21,4 +21,4 @@ $func = function ($name){
 
 $func("Dharmik");
 
-?>
+?> 5
