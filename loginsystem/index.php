@@ -1,3 +1,28 @@
+<?php
+
+include("connection.php");
+session_start();
+
+if(isset($_POST['login'])){
+
+    $u_email=$_POST['u_email'];
+    $u_password=$_POST['u_password'];
+
+    // $query = "selecte * from `users` where ( `u_email`=$u_email, `u_password`=$u_password );";
+    $query = "SELECT * FROM users WHERE u_email='$u_email'AND u_password='$u_password'";
+
+    $run = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($run);
+    if(mysqli_num_rows($run)>0){
+        if($u_password== $row['u_password']){
+            header("Location:dashbord.php");
+        }
+    }else{
+        echo "Incorrcte Email and Password";
+    }
+}   
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -108,7 +133,6 @@
         text-decoration: underline;
     }
 
-    /* Responsive */
     @media (max-width: 400px) {
         .login-container {
             width: 90%;
@@ -126,22 +150,15 @@
         <form action="" method="post">
             <div class=" input-group">
                 <label>Email</label>
-                <input type="email" placeholder="Enter your email" required>
+                <input type="email" name="u_email" id="u_email" placeholder="Enter your email" required>
             </div>
 
             <div class="input-group">
                 <label>Password</label>
-                <input type="password" placeholder="Enter your password" required>
+                <input type="password" name="u_password" id="u_password" placeholder="Enter your password" required>
             </div>
 
-            <div class="remember">
-                <label>
-                    <input type="checkbox"> Remember me
-                </label>
-                <a href="#">Forgot Password?</a>
-            </div>
-
-            <button type="submit" class="btn">Login</button>
+            <button type="submit" name="login" value="login" id="login" class="btn">Login</button>
 
             <div class="register">
                 Don't have an account? <a href="Registration.php">Register</a>

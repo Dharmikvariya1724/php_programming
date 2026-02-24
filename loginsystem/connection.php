@@ -1,7 +1,5 @@
 <?php
 
-
-$conn= mysqli_connect("localhost","root", "", "first");
-
+    $conn= mysqli_connect("localhost","root", "", "first");
 
 ?>

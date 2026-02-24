@@ -1,6 +1,5 @@
 <?php
 
-
 include("connection.php");
 
 if(isset($_POST['registration'])){
@@ -14,7 +13,7 @@ if(isset($_POST['registration'])){
 
     $run = mysqli_query($conn, $query);
     if($run){
-        header("loication:index.php");
+        header("Location:index.php");
     }else{
         echo "File Not Fond";
     }
