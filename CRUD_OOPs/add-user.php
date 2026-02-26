@@ -1,7 +1,21 @@
 <?php
+require_once "connfig/database.php";
 
+$obj = new Query();
 
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $data = [
+        'name'  => $_POST['name'],
+        'email' => $_POST['email'],
+        'phone' => $_POST['phone'],
+        'password' => $_POST['password']
+    ];
 
+    if($obj->insertData('users', $data)){
+        header("Location: index.php");
+        exit;
+    }
+}
 ?>
 
 
@@ -137,7 +151,12 @@
 
             <div class="input-group">
                 <label>Phone Number</label>
-                <input type="phone" name="phone" placeholder="Enter password" required>
+                <input type="phone" name="phone" placeholder="Enter Phone Number" required>
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Enter Phone Number" required>
             </div>
 
             <button type="submit" class="btn">Register</button>

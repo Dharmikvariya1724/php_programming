@@ -26,38 +26,83 @@ class Database {
 
 class Query extends Database {
 
-    public function getData($table, $fields) {
+    // View Data
+    public function getData($table, $fields = "*", $condition = "") {
+        $conn = $this->connect();
 
-        $sql = "SELECT $fields FROM $table ";
-        // echo $sql;
-        // exit;
-            $conn = $this->connect();
-            $result = $conn->query($sql);
-            
-        try {
-            $conn = $this->connect();
-            $result = $conn->query($sql);
+        $sql = "SELECT $fields FROM $table";
 
-            return $result;
-
-        } catch (Exception $e) {
-            echo "Error: " . $e->getMessage();
+        if(!empty($condition)){
+            $sql .= " WHERE $condition";
         }
 
-            print_r ($result);
-            exit;
+        $result = $conn->query($sql);
 
+        if ($result->num_rows > 0) {
+            $rows = [];
+            while ($row = $result->fetch_assoc()) {
+                $rows[] = $row;
+            }
+            return $rows;
+        } else {
+            return [];
+        }
     }
 
-    public function insertData($table) {
+    // Insert
+    public function insertData($table, $data = []) {
+        $conn = $this->connect();
 
-        $sql = "INSERT INTO $table(`name`, `email`, `phone`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]')";
-            $conn = $this->connect();
-            $result = $conn->query($sql);   
+        $columns = implode(',', array_keys($data));
+        $values  = implode("','", array_map([$conn, 'real_escape_string'], array_values($data)));
 
-            print_r ($result);
+        $sql = "INSERT INTO $table ($columns) VALUES ('$values')";
+
+        if ($conn->query($sql)) {
+
+            return true;
+        } else {
+            echo "Error: " . $conn->error;
+            return false;
+        }
+        print_r ($sql);
             exit;
+    }
 
+    // Update
+    public function updateData($table, $data = [], $condition = "") {
+        $conn = $this->connect();
+
+        $updateFields = [];
+        foreach ($data as $key => $value) {
+            $value = $conn->real_escape_string($value);
+            $updateFields[] = "$key = '$value'";
+        }
+
+        $updateFields = implode(", ", $updateFields);
+
+        $sql = "UPDATE $table SET $updateFields WHERE $condition";
+
+        if ($conn->query($sql)) {
+            return true;
+        } else {
+            echo "Error: " . $conn->error;
+            return false;
+        }
+    }
+
+    // Delete
+    public function deleteData($table, $condition = "") {
+        $conn = $this->connect();
+
+        $sql = "DELETE FROM $table WHERE $condition";
+
+        if ($conn->query($sql)) {
+            return true;
+        } else {
+            echo "Error: " . $conn->error;
+            return false;
+        }
     }
 
 }
