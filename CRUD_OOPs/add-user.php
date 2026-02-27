@@ -3,16 +3,24 @@ require_once "connfig/database.php";
 
 $obj = new Query();
 
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $imageName = "";
+    if (isset($_FILES['image']) && $_FILES['image']['name'] != "") {
+        $imageName = time() . "_" . $_FILES['image']['name'];
+        $tmpName   = $_FILES['image']['tmp_name'];
+        $uploadDir = "uploads/" . $imageName;
+        move_uploaded_file($tmpName, $uploadDir);
+    }
     $data = [
         'name'  => $_POST['name'],
         'email' => $_POST['email'],
         'phone' => $_POST['phone'],
-        'password' => $_POST['password']
+        'password' => $_POST['password'],
+        'image' => $imageName
     ];
 
-    if($obj->insertData('users', $data)){
-        header("Location: index.php");
+    if ($obj->insertData('users', $data)) {
+        header("Location: dashboard.php");
         exit;
     }
 }
@@ -137,7 +145,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="container">
         <h2>Create User</h2>
 
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
 
             <div class="input-group">
                 <label>Full Name</label>
@@ -157,6 +165,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="input-group">
                 <label>Password</label>
                 <input type="password" name="password" placeholder="Enter Phone Number" required>
+            </div>
+
+            <div class="input-group">
+                <label>Add Image</label>
+                <input type="file" name="image" placeholder="Add Image" multiple>
             </div>
 
             <button type="submit" class="btn">Register</button>

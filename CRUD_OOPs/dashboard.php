@@ -3,32 +3,42 @@ session_start();
 require_once "connfig/database.php";
 
 $obj = new Query();
-$users = $obj->getData('users','*');
+$users = $obj->getData('users', '*');
 
-if(!isset($_SESSION['user_id'])){
+if (!isset($_SESSION['user_id'])) {
     header("Location: index.php");
     exit;
 }
 
 // Insert Data In Database Using Form(Post) 
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $imageName = "";
+    if (isset($_FILES['image']) && $_FILES['image']['name'] != "") {
+        $imageName = time() . "_" . $_FILES['image']['name'];
+        $tmpName   = $_FILES['image']['tmp_name'];
+        $uploadDir = "uploads/" . $imageName;
+
+        move_uploaded_file($tmpName, $uploadDir);
+    }
     $data = [
         'name'  => $_POST['name'],
         'email' => $_POST['email'],
-        'phone' => $_POST['phone']
+        'phone' => $_POST['phone'],
+        'password' => $_POST['password'],
+        'image' => $imageName
     ];
 
-    if($obj->insertData('users', $data)){
-        header("Location: index.php");
+    if ($obj->insertData('users', $data)) {
+        header("Location: dashboard.php");
         exit;
     }
 }
 
 // Delete Data In Database Using Form(Post) 
-if(isset($_GET['delete'])){
+if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
 
-    if($obj->deleteData('users', "id = $id")){
+    if ($obj->deleteData('users', "id = $id")) {
         header("Location: dashboard.php");
         exit;
     }
@@ -172,6 +182,7 @@ if(isset($_GET['delete'])){
                     <thead class="table-dark">
                         <tr>
                             <th>No:</th>
+                            <th>Image:</th>
                             <th>Name :</th>
                             <th>Email :</th>
                             <th>Phone No :</th>
@@ -179,22 +190,23 @@ if(isset($_GET['delete'])){
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if(!empty($users)){ ?>
+                        <?php if (!empty($users)) { ?>
                         <?php $i = 1; ?>
-                        <?php foreach($users as $user){ ?>
+                        <?php foreach ($users as $user) { ?>
                         <tr>
                             <td><?= $i++ ?></td>
+                            <td><img src="uploads/<?= $user['image'] ?>" width="60" height="60"></td>
                             <td><?= $user['name'] ?></td>
                             <td><?= $user['email'] ?></td>
                             <td><?= $user['phone'] ?></td>
                             <td>
                                 <a href="edit-usesr.php?id=<?= $user['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                                <a href="dashboard.php?delete=<?= $user['id'] ?>" class="btn btn-danger btn-sm"
-                                    onclick="return confirm('Are you sure?')">Delete</a>
+                                <a href="dashboard.php?delete=<?= $user['id'] ?>"
+                                    class="btn btn-danger btn-sm">Delete</a>
                             </td>
                         </tr>
                         <?php } ?>
-                        <?php }else{ ?>
+                        <?php } else { ?>
                         <tr>
                             <td colspan="5">No users found</td>
                         </tr>

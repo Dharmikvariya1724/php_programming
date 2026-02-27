@@ -1,0 +1,102 @@
+body {
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(125deg, #4e73df, #1cc88a);
+}
+
+.container {
+  margin-top: 30px;
+}
+
+/* Form Styling */
+.form-card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+.form-card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: 0.3s;
+}
+
+.input-group input:focus {
+  border-color: #4e73df;
+  box-shadow: 0 0 5px rgba(78, 115, 223, 0.5);
+}
+
+.input-group textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: 0.3s;
+  /* resize: none; */
+  min-height: 100px; /* better height for textarea */
+}
+
+.input-group textarea:focus {
+  border-color: #4e73df;
+  box-shadow: 0 0 5px rgba(78, 115, 223, 0.5);
+}
+
+.btn-submit {
+  width: 100%;
+  background: #4e73df;
+  color: #fff;
+  font-weight: 500;
+}
+
+.btn-submit:hover {
+  background: #2e59d9;
+}
+
+/* Table Styling */
+.table-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.table-card h4 {
+  margin-bottom: 15px;
+}
+
+.table thead th {
+  text-align: center;
+}
+
+.table tbody td {
+  vertical-align: middle;
+}
+
+.logout:hover {
+  background: darkred;
+}

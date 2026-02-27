@@ -1,33 +1,17 @@
 <?php
-require_once "connfig/database.php";
+require_once "config/db.php";
 
 $obj = new Query();
 
-if(isset($_GET['id'])){
-    $id = $_GET['id'];
-    $user = $obj->getData('users', "*", "id = $id");
-    $user = $user[0];
-}
-
-// Update Logic
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $imageName = $user['image'];
-    if (isset($_FILES['image']) && $_FILES['image']['name'] != "") {
-        $imageName = time() . "_" . $_FILES['image']['name'];
-        $tmpName   = $_FILES['image']['tmp_name'];
-        $uploadDir = "uploads/" . $imageName;
-        move_uploaded_file($tmpName, $uploadDir);
-    }
     $data = [
         'name'  => $_POST['name'],
         'email' => $_POST['email'],
-        'phone' => $_POST['phone'],
-        'password' => $_POST['password'],
-        'image' => $imageName
+        'password' => $_POST['password']
     ];
 
-    if ($obj->updateData('users', $data, "id = $id")) {
-        header("Location: dashboard.php");
+    if ($obj->insertData('users', $data)) {
+        header("Location: index.php");
         exit;
     }
 }
@@ -150,41 +134,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
     <div class="container">
-        <h2>Create User</h2>
+        <h2>User Registration</h2>
 
         <form action="" method="post" enctype="multipart/form-data">
 
             <div class="input-group">
                 <label>Full Name</label>
-                <input type="text" name="name" value="<?= $user['name'] ?>" required>
+                <input type="text" name="name" placeholder="Enter your name" required>
             </div>
 
             <div class="input-group">
                 <label>Email</label>
-                <input type="email" name="email" value="<?= $user['email'] ?>" required>
-            </div>
-
-            <div class="input-group">
-                <label>Phone Number</label>
-                <input type="phone" name="phone" value="<?= $user['phone'] ?>" required>
+                <input type="email" name="email" placeholder="Enter your email" required>
             </div>
 
             <div class="input-group">
                 <label>Password</label>
-                <input type="password" name="password" value="<?= $user['password'] ?>" placeholder="Enter Password"
-                    required>
+                <input type="password" name="password" placeholder="Enter Phone Number" required>
             </div>
 
-            <div class="input-group">
-                <label>Add Image</label>
-                <input type="file" name="image" placeholder="Add Image" multiple>
+            <button type="submit" class="btn">Register</button>
+
+            <div class="login-link">
+                Already have an account? <a href="index.php">Login</a>
             </div>
-
-            <button type="submit" class="btn">Update</button>
-
-            <!-- <div class="login-link">
-                Already have an account? <a href="#">Login</a>
-            </div> -->
         </form>
     </div>
 
