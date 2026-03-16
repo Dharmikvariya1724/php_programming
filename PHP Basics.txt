@@ -1,0 +1,24 @@
+PHP Basics
+
+1. Variables
+2. Function
+3. Loops
+4. Array:
+   - Indexed
+   - Associative
+   - Multidimensional
+5. Operators
+6. Sessions & Cookies
+7. Form handling
+8. $_GET, $_POST
+
+PHP Advanced
+
+9. OOPS:
+   - Class & objecte
+   - Construcot & Destructor
+   - Inheritance
+   - Encapsulation
+   - Interface
+   - polymorphism
+10. Traits

@@ -176,7 +176,7 @@ if (isset($_POST['login'])) {
 
             <button type="submit" name="login" value="login" id="login" class="btn">Login</button>
 
-            <div class="register">
+            <div class="register">  
                 Don't have an account? <a href="Registration.php">Register</a>
             </div>
         </form>

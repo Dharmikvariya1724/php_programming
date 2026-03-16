@@ -1,102 +1,178 @@
 body {
-  font-family: Arial, sans-serif;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(125deg, #4e73df, #1cc88a);
+  font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  background: linear-gradient(135deg, #e8f0ff 0%, #eefbf3 100%);
+  color: #1f2937;
 }
 
-.container {
-  margin-top: 30px;
+.page-shell {
+  width: 100%;
+
 }
 
-/* Form Styling */
 .form-card {
-  background: #fff;
+  background: #ffffff;
   padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  margin-bottom: 40px;
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(17, 24, 39, 0.08);
+  border: 1px solid #e6edf7;
+  height: 100%;
 }
 
 .form-card h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.form-subtitle {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: #6b7280;
 }
 
 .input-group {
   margin-bottom: 15px;
+  display: block;
 }
 
 .input-group label {
   display: block;
   margin-bottom: 5px;
-  font-weight: 500;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #374151;
 }
 
-.input-group input {
+.input-group input,
+.input-group textarea {
   width: 100%;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  padding: 11px 12px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
   outline: none;
-  transition: 0.3s;
+  background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.input-group input:focus {
-  border-color: #4e73df;
-  box-shadow: 0 0 5px rgba(78, 115, 223, 0.5);
+.input-group input:focus,
+.input-group textarea:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.16);
 }
 
 .input-group textarea {
-  width: 100%;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  outline: none;
-  transition: 0.3s;
-  /* resize: none; */
-  min-height: 100px; /* better height for textarea */
-}
-
-.input-group textarea:focus {
-  border-color: #4e73df;
-  box-shadow: 0 0 5px rgba(78, 115, 223, 0.5);
+  min-height: 110px;
+  resize: vertical;
 }
 
 .btn-submit {
   width: 100%;
-  background: #4e73df;
+  background: #2563eb;
   color: #fff;
-  font-weight: 500;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 12px;
 }
 
 .btn-submit:hover {
-  background: #2e59d9;
+  background: #1d4ed8;
+  color: #fff;
 }
 
-/* Table Styling */
 .table-card {
-  background: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 12px 30px rgba(17, 24, 39, 0.08);
+  border: 1px solid #e6edf7;
 }
 
 .table-card h4 {
-  margin-bottom: 15px;
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
 }
 
-.table thead th {
-  text-align: center;
+.list-subtitle {
+  font-size: 0.9rem;
+  color: #6b7280;
 }
 
-.table tbody td {
-  vertical-align: middle;
+.task-count-badge {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1d4ed8;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
 }
 
-.logout:hover {
-  background: darkred;
+.task-item-card {
+  background: linear-gradient(180deg, #f9fbff 0%, #ffffff 100%);
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.task-item-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+}
+
+.task-number {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #2563eb;
+  background: #dbeafe;
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+.task-time {
+  font-size: 0.76rem;
+  color: #6b7280;
+}
+
+.task-title {
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: #111827;
+  word-break: break-word;
+}
+
+.task-desc {
+  color: #4b5563;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.empty-state {
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 28px 16px;
+  color: #64748b;
+}
+
+@media (max-width: 991.98px) {
+  .form-card,
+  .table-card {
+    height: auto;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .table-card,
+  .form-card {
+    padding: 16px;
+  }
 }
